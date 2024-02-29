@@ -1,13 +1,11 @@
 public class ResizingArrayQueueOfStrings {
 
     private String[] queue;
-    private int initialQueueLength;
     private int first;
     private int size;
 
     public ResizingArrayQueueOfStrings(){       //Constructor
-        initialQueueLength = 5;
-        queue = new String[initialQueueLength];
+        queue = new String[5];
         first = 0;
         size = 0;
     }
