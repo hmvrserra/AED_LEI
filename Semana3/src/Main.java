@@ -10,15 +10,36 @@ public class Main {
         queue.enqueue("A");
         queue.enqueue("Test");
 
+        System.out.println("First: " + queue.printArray(0));
+        System.out.println("Last: " + queue.printArray(5));
+
+        // [0] = "Hello"
+        // [1] = "World"
+        // [2] = "This"
+        // [3] = "Is"
+        // [4] = "A"
+        // [5] = "Test"
+
+
         // Test shift
-        queue.shift();
+        queue.shift();    //Last element in the queue becomes the first
+
+        // [0] = "Test"
+        // [1] = "Hello"
+        // [2] = "World"
+        // [3] = "This"
+        // [4] = "Is"
+        // [5] = "A"
+
+        System.out.println("First: " + queue.printArray(0));
+        System.out.println("Last: " + queue.printArray(5));
 
         // Test size
         System.out.println("Size: " + queue.size()); // Should print 6
 
         // Test dequeue
+        System.out.println("Dequeue: " + queue.dequeue()); // Should print "Test"
         System.out.println("Dequeue: " + queue.dequeue()); // Should print "Hello"
-        System.out.println("Dequeue: " + queue.dequeue()); // Should print "World"
 
         // Test isEmpty
         System.out.println("Is Empty: " + queue.isEmpty()); // Should print false
@@ -30,5 +51,6 @@ public class Main {
 
         // Test isEmpty after dequeuing all items
         System.out.println("Is Empty: " + queue.isEmpty()); // Should print true
+
     }
 }

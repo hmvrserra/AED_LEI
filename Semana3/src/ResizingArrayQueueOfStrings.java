@@ -1,15 +1,15 @@
 public class ResizingArrayQueueOfStrings {
 
     private String[] queue;
-    private int intiialQueueLength;
+    private int initialQueueLength;
     private int first;
     private int size;
 
     public ResizingArrayQueueOfStrings(){       //Constructor
-        intiialQueueLength = 5;
-        queue=new String[intiialQueueLength];
-        first=0;
-        size=0;
+        initialQueueLength = 5;
+        queue = new String[initialQueueLength];
+        first = 0;
+        size = 0;
     }
 
     private void resizeArrayByOne() {       //Resizes the array by one
@@ -18,7 +18,7 @@ public class ResizingArrayQueueOfStrings {
         for (int i = 0; i < queue.length; i++) {
             resized[i] = queue[i];
         }
-        queue=resized;
+        queue = resized;
     }
 
     public void enqueue(String item){       //Add item to queue
@@ -40,15 +40,15 @@ public class ResizingArrayQueueOfStrings {
         String item = queue[first];
         String[] copy = new String[queue.length-1];
         for (int i = 0; i < copy.length; i++){
-            copy[i]=queue[i+1];
+            copy[i] = queue[i+1];
         }
-        queue=copy;
+        queue = copy;
         size--;
         return item;
     }
 
     public boolean isEmpty(){       //Verifies if the queue is empty
-        return size==0;
+        return size == 0;
     }
 
     public int size(){      //Returns the size of the queue
@@ -61,9 +61,13 @@ public class ResizingArrayQueueOfStrings {
         String last = queue[size-1];
         String[] copy = new String[queue.length];
         for (int i = 1; i < queue.length; i++){
-            copy[i]=queue[i-1];
+            copy[i] = queue[i-1];
         }
-        copy[first]=last;
-        queue=copy;
+        copy[first] = last;
+        queue = copy;
+    }
+
+    public String printArray(int num){
+        return queue[num];
     }
 }
