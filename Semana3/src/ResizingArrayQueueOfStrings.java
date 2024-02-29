@@ -3,14 +3,12 @@ public class ResizingArrayQueueOfStrings {
     private String[] queue;
     private int intiialQueueLength;
     private int first;
-    private int last;
     private int size;
 
     public ResizingArrayQueueOfStrings(){       //Constructor
         intiialQueueLength = 5;
         queue=new String[intiialQueueLength];
         first=0;
-        last=0;
         size=0;
     }
 
@@ -58,6 +56,14 @@ public class ResizingArrayQueueOfStrings {
     }
 
     public void shift(){        //Moves the last element to the start of the queue
-
+        if (size < 2)
+            throw new RuntimeException("Queue has less than two items");
+        String last = queue[size-1];
+        String[] copy = new String[queue.length];
+        for (int i = 1; i < queue.length; i++){
+            copy[i]=queue[i-1];
+        }
+        copy[first]=last;
+        queue=copy;
     }
 }

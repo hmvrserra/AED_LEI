@@ -10,6 +10,9 @@ public class Main {
         queue.enqueue("A");
         queue.enqueue("Test");
 
+        // Test shift
+        queue.shift();
+
         // Test size
         System.out.println("Size: " + queue.size()); // Should print 6
 
