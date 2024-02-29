@@ -67,6 +67,8 @@ public class ResizingArrayQueueOfStrings {
         queue = copy;
     }
 
+    /************************************************ EXTRA ****************************************************/
+
     public String printArray(int num){
         return queue[num];
     }
