@@ -1,21 +1,23 @@
 public class ResizingArrayQueueOfStrings {
 
     private String[] queue;
+    private int intiialQueueLength;
     private int first;
     private int last;
     private int size;
 
     public ResizingArrayQueueOfStrings(){       //Constructor
-        queue=new String[1];
+        intiialQueueLength = 5;
+        queue=new String[intiialQueueLength];
         first=0;
         last=0;
         size=0;
     }
 
-    private void resizeByOne() {
+    private void resizeArrayByOne() {
         String[] resized = new String[queue.length+1];
 
-        for (int i = 0; i < resized.length; i++) {
+        for (int i = 0; i < queue.length; i++) {
             resized[i] = queue[i];
         }
         queue=resized;
@@ -23,9 +25,9 @@ public class ResizingArrayQueueOfStrings {
 
     public void enqueue(String item){       //Add item to queue
         if (size == queue.length)
-            resizeByOne();
+            resizeArrayByOne();
         for (int i = 0; i < queue.length; i++){
-            if (queue[i] != null){
+            if (queue[i] == null){
                 queue[i] = item;
                 size++;
                 break;
@@ -34,13 +36,17 @@ public class ResizingArrayQueueOfStrings {
     }
 
     public String dequeue(){
-        String[] dequeue = new String[queue.length-1];
-        String retString = queue[0];
-        for (int i=0; i < dequeue.length; i++){
-            dequeue[i]=queue[i+1];
+        if (isEmpty())
+            throw new RuntimeException("Queue is empty");
+
+        String item = queue[first];
+        String[] copy = new String[queue.length-1];
+        for (int i = 0; i < copy.length; i++){
+            copy[i]=queue[i+1];
         }
-        queue=dequeue;
-        return retString;
+        queue=copy;
+        size--;
+        return item;
     }
 
     public boolean isEmpty(){
@@ -49,5 +55,9 @@ public class ResizingArrayQueueOfStrings {
 
     public int size(){
         return size;
+    }
+
+    public void shift(){
+
     }
 }
