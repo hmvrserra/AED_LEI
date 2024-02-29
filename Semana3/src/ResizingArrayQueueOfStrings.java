@@ -14,7 +14,7 @@ public class ResizingArrayQueueOfStrings {
         size=0;
     }
 
-    private void resizeArrayByOne() {
+    private void resizeArrayByOne() {       //Resizes the array by one
         String[] resized = new String[queue.length+1];
 
         for (int i = 0; i < queue.length; i++) {
@@ -35,7 +35,7 @@ public class ResizingArrayQueueOfStrings {
         }
     }
 
-    public String dequeue(){
+    public String dequeue(){        //Remove and return the least recently added item
         if (isEmpty())
             throw new RuntimeException("Queue is empty");
 
@@ -49,15 +49,15 @@ public class ResizingArrayQueueOfStrings {
         return item;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty(){       //Verifies if the queue is empty
         return size==0;
     }
 
-    public int size(){
+    public int size(){      //Returns the size of the queue
         return size;
     }
 
-    public void shift(){
+    public void shift(){        //Moves the last element to the start of the queue
 
     }
 }
