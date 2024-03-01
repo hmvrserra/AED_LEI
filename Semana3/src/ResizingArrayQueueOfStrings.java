@@ -12,8 +12,8 @@ public class ResizingArrayQueueOfStrings {
         size = 0;
     }
 
-    private void resize() {       //Resizes the array by one
-        String[] resized = new String[queue.length * 2];
+    private void resize(int capacity) {       //Resizes the array by one
+        String[] resized = new String[capacity];
 
         for (int i = 0; i < queue.length; i++) {
             resized[i] = queue[i];
@@ -23,7 +23,7 @@ public class ResizingArrayQueueOfStrings {
 
     public void enqueue(String item){       //Add item to queue
         if (size == queue.length)
-            resize();
+            resize(queue.length * 2);
         for (int i = 0; i < queue.length; i++){
             if (queue[i] == null){
                 queue[i] = item;
