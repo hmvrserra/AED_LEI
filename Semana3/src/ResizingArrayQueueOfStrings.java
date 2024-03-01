@@ -12,36 +12,38 @@ public class ResizingArrayQueueOfStrings {
         size = 0;
     }
 
-    private void resize(int capacity) {       //Resizes the array by one
+    private void resize(int capacity) {       //Resizes the array
         String[] resized = new String[capacity];
 
         for (int i = 0; i < queue.length; i++) {
-            resized[i] = queue[i];
+            resized[i] = queue[first];
+            first = next(first);
         }
         queue = resized;
+        first = 0;
+        last = size;
+    }
+
+    private int next(int pos){
+        return (pos + 1) % queue.length;
     }
 
     public void enqueue(String item){       //Add item to queue
         if (size == queue.length)
             resize(queue.length * 2);
-        for (int i = 0; i < queue.length; i++){
-            if (queue[i] == null){
-                queue[i] = item;
-                size++;
-                break;
-            }
-        }
+        queue[last] = item;
+        last = next(last);
+        size++;
+
+        if (size == 1)
+            first = last;
     }
 
     public String dequeue(){        //Remove and return the least recently added item
         if (isEmpty())
             throw new RuntimeException("Queue is empty");
         String item = queue[first];
-        String[] copy = new String[queue.length-1];
-        for (int i = 0; i < copy.length; i++){
-            copy[i] = queue[i+1];
-        }
-        queue = copy;
+        first = next(first);
         size--;
         return item;
     }
@@ -57,18 +59,25 @@ public class ResizingArrayQueueOfStrings {
     public void shift(){        //Moves the last element to the start of the queue
         if (size < 2)
             throw new RuntimeException("Queue has less than two items");
-        String last = queue[size-1];
-        String[] copy = new String[queue.length];
-        for (int i = 1; i < queue.length; i++){
-            copy[i] = queue[i-1];
+        String last = queue[size - 1];
+        for (int i = size - 1; i > 0; i--){
+            queue[i] = queue[i - 1];
         }
-        copy[first] = last;
-        queue = copy;
+        queue[0] = last;
+        first = 0;
+        this.last = size - 1;
     }
 
     /************************************************ EXTRA ****************************************************/
 
-    public String printArray(int num){
-        return queue[num];
+    public void printArray() {
+        System.out.print("[");
+        for (int i = 0; i < size; i++) {
+            if (i != 0) {
+                System.out.print(", ");
+            }
+            System.out.print(queue[i]);
+        }
+        System.out.println("]");
     }
 }

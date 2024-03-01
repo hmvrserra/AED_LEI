@@ -10,15 +10,14 @@ public class Main {
         queue.enqueue("A");
         queue.enqueue("Test");
 
-        System.out.println("First: " + queue.printArray(0));
-        System.out.println("Last: " + queue.printArray(5));
-
         // [0] = "Hello"
         // [1] = "World"
         // [2] = "This"
         // [3] = "Is"
         // [4] = "A"
         // [5] = "Test"
+
+        queue.printArray();
 
 
         // Test shift
@@ -31,8 +30,8 @@ public class Main {
         // [4] = "Is"
         // [5] = "A"
 
-        System.out.println("First: " + queue.printArray(0));
-        System.out.println("Last: " + queue.printArray(5));
+        queue.printArray();
+
 
         // Test size
         System.out.println("Size: " + queue.size()); // Should print 6
@@ -49,7 +48,7 @@ public class Main {
             System.out.println("Dequeue: " + queue.dequeue());
         }
 
-        // Test isEmpty after dequeuing all items
+        // Test isEmpty after dequeued all items
         System.out.println("Is Empty: " + queue.isEmpty()); // Should print true
 
     }
