@@ -2,16 +2,18 @@ public class ResizingArrayQueueOfStrings {
 
     private String[] queue;
     private int first;
+    private int last;
     private int size;
 
     public ResizingArrayQueueOfStrings(){       //Constructor
-        queue = new String[5];
+        queue = new String[1];
         first = 0;
+        last = 0;
         size = 0;
     }
 
-    private void resizeArrayByOne() {       //Resizes the array by one
-        String[] resized = new String[queue.length+1];
+    private void resize() {       //Resizes the array by one
+        String[] resized = new String[queue.length * 2];
 
         for (int i = 0; i < queue.length; i++) {
             resized[i] = queue[i];
@@ -21,7 +23,7 @@ public class ResizingArrayQueueOfStrings {
 
     public void enqueue(String item){       //Add item to queue
         if (size == queue.length)
-            resizeArrayByOne();
+            resize();
         for (int i = 0; i < queue.length; i++){
             if (queue[i] == null){
                 queue[i] = item;
@@ -34,7 +36,6 @@ public class ResizingArrayQueueOfStrings {
     public String dequeue(){        //Remove and return the least recently added item
         if (isEmpty())
             throw new RuntimeException("Queue is empty");
-
         String item = queue[first];
         String[] copy = new String[queue.length-1];
         for (int i = 0; i < copy.length; i++){
