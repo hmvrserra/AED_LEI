@@ -70,7 +70,7 @@ public class ResizingArrayQueueOfStrings {
 
     /************************************************ EXTRA ****************************************************/
 
-    public void printArray() {
+    public void printArray(){
         System.out.print("[");
         for (int i = 0; i < size; i++) {
             if (i != 0) {
