@@ -3,19 +3,19 @@ public class Main {
         ResizingArrayQueueOfStrings queue = new ResizingArrayQueueOfStrings();
 
         // Test enqueue
-        queue.enqueue("Hello");
-        queue.enqueue("World");
-        queue.enqueue("This");
-        queue.enqueue("Is");
-        queue.enqueue("A");
-        queue.enqueue("Test");
+        queue.enqueue("O");
+        queue.enqueue("Sporting");
+        queue.enqueue("Não");
+        queue.enqueue("Vai");
+        queue.enqueue("Ser");
+        queue.enqueue("Campeão");
 
-        // [0] = "Hello"
-        // [1] = "World"
-        // [2] = "This"
-        // [3] = "Is"
-        // [4] = "A"
-        // [5] = "Test"
+        // [0] = "O"
+        // [1] = "Sporting"
+        // [2] = "Não"
+        // [3] = "Vai"
+        // [4] = "Ser"
+        // [5] = "Campeão"
 
         queue.printArray();
 
@@ -23,12 +23,12 @@ public class Main {
         // Test shift
         queue.shift();    //Last element in the queue becomes the first
 
-        // [0] = "Test"
-        // [1] = "Hello"
-        // [2] = "World"
-        // [3] = "This"
-        // [4] = "Is"
-        // [5] = "A"
+        // [0] = "Campeão"
+        // [1] = "O"
+        // [2] = "Sporting"
+        // [3] = "Não"
+        // [4] = "Vai"
+        // [5] = "Ser"
 
         queue.printArray();
 
@@ -37,8 +37,8 @@ public class Main {
         System.out.println("Size: " + queue.size()); // Should print 6
 
         // Test dequeue
-        System.out.println("Dequeue: " + queue.dequeue()); // Should print "Test"
-        System.out.println("Dequeue: " + queue.dequeue()); // Should print "Hello"
+        System.out.println("Dequeue: " + queue.dequeue()); // Should print "Campeão"
+        System.out.println("Dequeue: " + queue.dequeue()); // Should print "O"
 
         // Test isEmpty
         System.out.println("Is Empty: " + queue.isEmpty()); // Should print false
