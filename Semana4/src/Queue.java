@@ -1,6 +1,5 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
 public class Queue<T> implements Iterable<T>{
 
     private Node first, last;
