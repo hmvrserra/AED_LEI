@@ -44,13 +44,18 @@ public class Queue<T> implements Iterable<T>{
     }
 
     public void shift(){
-        if (size <= 1)
-            throw new RuntimeException("Less than 2 items in queue");
-        Node newLast = first;
-        first = first.next;
-        last.next = newLast;
-        last = newLast;
-        last.next = null;
+        if (size() <= 1) {
+            throw new RuntimeException("Queue has less than two elements");
+        }
+        Node newFirst = last;
+        Node current = first;
+        while (current.next != last) {
+            current = current.next;
+        }
+        current.next = null;
+        last.next = first;
+        first = newFirst;
+        last = current;
     }
 
     public Iterator<T>  iterator(){
