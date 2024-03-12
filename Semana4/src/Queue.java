@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Queue<T> implements Iterable<T>{
 
@@ -12,11 +13,26 @@ public class Queue<T> implements Iterable<T>{
     }
 
     public void enqueue(T item){
-
+        Node oldlast = last;
+        last = new Node();
+        last.item = item;
+        last.next = null;
+        if (isEmpty())
+            first = last;
+        else
+            oldlast.next = last;
+        size++;
     }
 
     public T dequeue(){
-
+        if (isEmpty())
+            throw new NoSuchElementException("Queue underflow");
+        T item = first.item;
+        first = first.next;
+        size--;
+        if (isEmpty())
+            last = null;
+        return item;
     }
 
     public boolean isEmpty(){
@@ -28,13 +44,35 @@ public class Queue<T> implements Iterable<T>{
     }
 
     public void shift(){
-
+        if (size <= 1)
+            throw new RuntimeException("Less than 2 items in queue");
+        Node newLast = first;
+        first = first.next;
+        last.next = newLast;
+        last = newLast;
+        last.next = null;
     }
 
     public Iterator<T>  iterator(){
-
+        return new QueueIterator();
     }
 
+    private class QueueIterator implements Iterator<T>{
+
+        private Node current = first;
+
+        public boolean hasNext(){
+            return current != null;
+        }
+
+        public T next() {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            T item = current.item;
+            current = current.next;
+            return item;
+        }
+    }
 
 
 
