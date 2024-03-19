@@ -23,9 +23,36 @@ public class List<T> implements Iterable<T>{
         size++;
     }
 
-    //public T get(int index){}
+    public T get(int index){
+        if (index<0 || index>=size)
+            throw new NoSuchElementException();
 
-    //public T remove(int index){}
+        Node current = first;
+
+        for (int i = 0; i < index; i++){
+            current = current.next;
+        }
+        return current.item;
+    }
+
+    public T remove(int index){
+        if (index < 0 || index >= size)
+            throw new NoSuchElementException();
+        Node before = null, current = first;
+        for (int i = 0; i < index; i++) {
+            before = current;
+            current = current.next;
+        }
+        if(before == null)
+            first = first.next;
+        else
+            before.next = current.next;
+        if(first == null)
+            last = null;
+
+        size--;
+        return current.item;
+    }
 
     //public boolean removeFirst(T item){}
 
@@ -40,6 +67,7 @@ public class List<T> implements Iterable<T>{
     public boolean contains(T item){
         if (isEmpty())
             return false;
+
         for (Node current = first; current != null; current = current.next) {
             if (current.item.equals(item))
                 return true;
@@ -51,8 +79,22 @@ public class List<T> implements Iterable<T>{
         return size;
     }
 
-    //public boolean isPalindrome(){}
+    public boolean isPalindrome(){
+        if (isEmpty() || size == 1)
+            return true;
 
+        Node front = first;
+        Node back = last;
+
+        while (front != back && front.previous != back) {
+            if (!front.item.equals(back.item))
+                return false;
+            front = front.next;
+            back = back.previous;
+        }
+
+        return true;
+    }
 
     public Iterator<T> iterator(){
         return new ListIterator();
