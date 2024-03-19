@@ -54,11 +54,79 @@ public class List<T> implements Iterable<T>{
         return current.item;
     }
 
-    //public boolean removeFirst(T item){}
+    public boolean removeFirst(T item){
+        if (isEmpty())
+            return false;
 
-    //public boolean removeLast(T item){}
+        if (first.item.equals(item)){
+            first = first.next;
+            if (first == null)
+                last = null;
+            size--;
+            return true;
+        }
 
-    //public boolean removeAll(T item){}
+        Node before = null, current = first;
+        while (current != null && !current.item.equals(item)){
+            before = current;
+            current = current.next;
+        }
+
+        if (current == null)
+            return false;
+
+        if (current == last)
+            last = before;
+
+        before.next = current.next;
+        size--;
+        return true;
+    }
+
+    public boolean removeLast(T item){
+        if (isEmpty())
+            return false;
+
+        if (last.item.equals(item)){
+            if (first == last) {
+                first = null;
+                last = null;
+                size--;
+                return true;
+            }
+            Node current = first;
+            while (current.next != last)
+                current = current.next;
+            current.next = null;
+            last = current;
+            size--;
+            return true;
+        }
+
+        Node before = null, current = first;
+        while (current != null && !current.item.equals(item)){
+            before = current;
+            current = current.next;
+        }
+
+        if (current == null)
+            return false;
+
+        if (current == first)
+            first = current.next;
+        else
+            before.next = current.next;
+
+        size--;
+        return true;
+    }
+
+    public boolean removeAll(T item){
+        boolean removed = false;
+        while (removeFirst(item))
+            removed = true;
+        return removed;
+    }
 
     public boolean isEmpty(){
         return first == null;

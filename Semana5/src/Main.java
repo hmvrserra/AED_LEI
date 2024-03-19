@@ -1,35 +1,40 @@
 public class Main {
     public static void main(String[] args) {
-        List<String> list = new List<String>();
+        List<Integer> myList = new List<>();
 
-        list.add("O");
-        list.add("Sporting");
-        list.add("Não");
-        list.add("Não");
-        list.add("Sporting");
-        list.add("O");
+        // Adding elements to the list
+        myList.add(10);
+        myList.add(20);
+        myList.add(30);
+        myList.add(40);
+        myList.add(50);
 
-        System.out.println(list.contains("O"));
-        System.out.println(list.contains("Sporting"));
-        System.out.println(list.contains("Não"));
-        System.out.println(list.contains("Vai"));
-        System.out.println(list.contains("Ser"));
-        System.out.println(list.contains("Campeão"));
+        // Printing the elements of the list
+        System.out.println("Elements in the list:");
+        for (Integer element : myList) {
+            System.out.print(element + " ");
+        }
+        System.out.println(); // New line for readability
 
-        System.out.println(list.isPalindrome());
+        // Removing an element at index 2
+        int removedElement = myList.remove(2);
+        System.out.println("Removed element at index 2: " + removedElement);
 
-        System.out.println(list.size());
-        list.remove(5);
-        System.out.println(list.size());
-        list.remove(4);
-        System.out.println(list.size());
-        list.remove(3);
-        System.out.println(list.size());
-        list.remove(2);
-        System.out.println(list.size());
-        list.remove(1);
-        System.out.println(list.size());
+        // Printing the updated list
+        System.out.println("Elements in the list after removal:");
+        for (Integer element : myList) {
+            System.out.print(element + " ");
+        }
+        System.out.println(); // New line for readability
 
-        System.out.println(list.get(0));
+        // Checking if the list contains a certain element
+        int searchElement = 20;
+        System.out.println("Does the list contain " + searchElement + "? " + myList.contains(searchElement));
+
+        // Getting the size of the list
+        System.out.println("Size of the list: " + myList.size());
+
+        // Checking if the list is empty
+        System.out.println("Is the list empty? " + myList.isEmpty());
     }
 }
