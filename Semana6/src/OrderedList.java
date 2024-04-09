@@ -42,16 +42,23 @@ public class OrderedList<T extends Comparable<T>> implements Iterable<T> {
         return size == 0;
     }
 
-//    public void sort(){
-//
-//    }
-//
-//    public void shuffle(){
-//
-//    }
+    public void sort(){
+        for (int i = 0; i < size; i++){
+            for (int j = i; j > 0 && less(getNodeAtIndex(j).item, getNodeAtIndex(j - 1).item); j--){
+                swap(j, j - 1);
+            }
+        }
+    }
+
+    public void shuffle(){
+        for (int i = 0; i < size; i++){
+            int random = (int) ((i + 1) * Math.random());
+            swap(i, random);
+        }
+    }
 
     public boolean isSorted(){
-        for (Node current = first; current != null; current=current.next ){
+        for (Node current = first; current != null; current = current.next ){
             if (less(current.next.item, current.item))
                 return false;
         }
@@ -96,6 +103,38 @@ public class OrderedList<T extends Comparable<T>> implements Iterable<T> {
 
     private boolean less(T a,T b){
         return a.compareTo(b) < 0;
+    }
+
+    private Node getNodeAtIndex(int index){
+        Node current = first;
+
+        for (int i = 0; i < index; i++){
+            current = current.next;
+        }
+
+        return current;
+    }
+    public void swap(int i, int j){
+        if (i < 0 || j >= size){
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (i == j)
+            return;
+
+        Node nodeI = getNodeAtIndex(i);
+        Node nodeJ = getNodeAtIndex(j);
+
+        T temp = nodeI.item;
+        nodeI.item = nodeJ.item;
+        nodeJ.item = temp;
+    }
+
+    public void printList() {
+        for (Node current =  first; current != null; current = current.next) {
+            System.out.print(current.item + " ");
+        }
+        System.out.println();
     }
 
 }
