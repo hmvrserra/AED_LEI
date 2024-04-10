@@ -3,16 +3,22 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Integer[] a = new Integer[] {1,2,3,4,5,6,7,8,9,10};
+        int N = 1000000;
+
+        Integer[] a = new Integer[N];
+        for (int i = 0; i < a.length; i++)
+            a[i] =(int) (N * Math.random());
+
+
         System.out.println("Array Inicial:");
         System.out.println(Arrays.toString(a));
 
-        System.out.println("Está ordenado: " + QuickSorting.isSorted(a) + "\n"); //Should print true
+        System.out.println("Está ordenado: " + QuickSorting.isSorted(a) + "\n"); //Should print false
 
-        QuickSorting.shuffle(a);
-        System.out.println("Array Baralhado:");
+        QuickSorting.sort(a);
+        System.out.println("Array Ordenado:");
         System.out.println(Arrays.toString(a));
 
-        System.out.println("Está ordenado: " + QuickSorting.isSorted(a) + "\n"); //Should print false
+        System.out.println("Está ordenado: " + QuickSorting.isSorted(a) + "\n"); //Should print true
     }
 }
