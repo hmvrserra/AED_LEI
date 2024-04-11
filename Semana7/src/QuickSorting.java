@@ -2,6 +2,7 @@ import javax.swing.plaf.metal.MetalScrollBarUI;
 
 public class QuickSorting {
 
+    private static final int CUTOFF = 10;
 
     public static void sort(Comparable[] a) {   //sorts the array a using the quicksort algorithm
         shuffle(a);
@@ -9,16 +10,28 @@ public class QuickSorting {
     }
 
     public static void sortSubarray(Comparable[] a, int lo, int hi) { //(recursively) sorts the sub-array a[lo] to a[hi]
-        if (hi <= lo)
+        if (hi <= lo + CUTOFF - 1) {
+            insertionSort(a, lo, hi);
             return;
+        }
+        //int median = medionOf3(a, lo, lo + (hi - lo)/2, hi);
+        //exchange(a, lo, median);
+
         int j = partition(a, lo, hi);
         sortSubarray(a, lo, j - 1);
         sortSubarray(a, j + 1, hi);
     }
 
-//    public static void insertionSort(Comparable[] a, int lo, int hi) { //performs insertion sorting on the sub-array a[lo] to a[hi]
-//
-//    }
+    public static void insertionSort(Comparable[] a, int lo, int hi) { //performs insertion sorting on the sub-array a[lo] to a[hi]
+        for (int i = lo + 1; i <= hi; i++) {
+            int j = i - 1;
+            while (j >= lo && greater(a[j], a[i])) {
+                a[j + 1] = a[j];
+                j--;
+            }
+            a[j + 1] = a[i];
+        }
+    }
 
     public static int partition(Comparable[] a, int lo, int hi) {   //partition the sub-array a[lo] to a[hi]
         int i = lo;
@@ -44,9 +57,9 @@ public class QuickSorting {
         return j;
     }
 
-//    public static int medianOfThree(Comparable[] a, int lo, int hi) {   //returns the index of the median of 3 random elements in the sub-array a[lo] to a[hi]
-//
-//    }
+    public static int medianOfThree(Comparable[] a, int lo, int hi) {   //returns the index of the median of 3 random elements in the sub-array a[lo] to a[hi]
+
+    }
 
     public static boolean lessOrEqual(Comparable a, Comparable b) { //is a <= b?
         return a.compareTo(b) <= 0;
@@ -69,6 +82,10 @@ public class QuickSorting {
     /************************************************** EXTRA **************************************************/
     public static boolean less(Comparable a, Comparable b) { //is a <= b?
         return a.compareTo(b) < 0;
+    }
+
+    public static boolean greater(Comparable a, Comparable b) {
+        return a.compareTo(b) > 0;
     }
 
     public static boolean isSorted(Comparable[] a){
