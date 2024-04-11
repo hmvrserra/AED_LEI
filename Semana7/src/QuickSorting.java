@@ -14,8 +14,8 @@ public class QuickSorting {
             insertionSort(a, lo, hi);
             return;
         }
-        //int median = medionOf3(a, lo, lo + (hi - lo)/2, hi);
-        //exchange(a, lo, median);
+        int median = medianOfThree(a, lo, hi);
+        exchange(a, lo, median);
 
         int j = partition(a, lo, hi);
         sortSubarray(a, lo, j - 1);
@@ -57,8 +57,27 @@ public class QuickSorting {
         return j;
     }
 
-    public static int medianOfThree(Comparable[] a, int lo, int hi) {   //returns the index of the median of 3 random elements in the sub-array a[lo] to a[hi]
+    public static int medianOfThree(Comparable[] a, int lo, int hi) {
+        int mid = lo + (hi - lo) / 2;
 
+        // Compare a[lo], a[mid], and a[hi] to find the median
+        if (less(a[mid], a[lo])) {
+            if (less(a[hi], a[mid])) {
+                return mid;
+            } else if (less(a[hi], a[lo])) {
+                return hi;
+            } else {
+                return lo;
+            }
+        } else {
+            if (less(a[mid], a[hi])) {
+                return mid;
+            } else if (less(a[lo], a[hi])) {
+                return hi;
+            } else {
+                return lo;
+            }
+        }
     }
 
     public static boolean lessOrEqual(Comparable a, Comparable b) { //is a <= b?

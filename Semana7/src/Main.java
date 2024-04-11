@@ -1,9 +1,10 @@
+import java.util.Random;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int N = 1000000;
+        int N = 10000000;
 
         Integer[] a = new Integer[N];
         for (int i = 0; i < a.length; i++)
