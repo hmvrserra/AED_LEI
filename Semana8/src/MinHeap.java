@@ -30,7 +30,6 @@ public class MinHeap<T extends Comparable<T>>{
         return min;
     }
 
-    /************************************************** PRIVATE ******************************************************/
     private void exchange(int i, int j){
         T temp = pq[i];
         pq[i] = pq[j];
