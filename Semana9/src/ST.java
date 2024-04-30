@@ -8,6 +8,8 @@ public class ST<Key extends Comparable<Key>, Value> {
     private Value[] vals;
 
     public ST(){ //create a symbol table
+        keys = (Key[]) new Comparable[2];
+        vals = (Value[]) new Object[2];
         size = 0;
         root = null;
     }
