@@ -13,32 +13,37 @@ public class ST<Key extends Comparable<Key>, Value> {
     }
 
     public void put(Key key, Value val){ //put key-value pair into the table
-        if (val == null){
-            delete(key);
-            return;
+        root = put(root, key, val);
+    }
+
+    private Node put(Node x, Key key, Value val){
+        if (x == null){
+            size++;
+            return new Node(key, val);
         }
-        int i = rank(key);
-        if (i < size && keys[i].compareTo(key) == 0){
-            vals[i] = val;
-            return;
-        }
-        for (int j = size; j > i; j--){
-            keys[j] = keys[j - 1];
-            vals[j] = vals[j - 1];
-        }
-        keys[i] = key;
-        vals[i] = val;
-        size++;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0)
+            x.left = put(x.left, key, val);
+        else if (cmp > 0)
+            x.right = put(x.right, key, val);
+        else
+            x.value = val;
+        return x;
     }
 
     public Value get(Key key){ //value paired with key
         if (isEmpty())
             return null;
-        int i = rank(key);
-        if (i < size && keys[i].compareTo(key) == 0)
-            return vals[i];
-        else
-            return null;
+        while (root != null){
+            int cmp = key.compareTo(root.key);
+            if (cmp < 0)
+                root = root.left;
+            else if (cmp > 0)
+                root = root.right;
+            else
+                return root.value;
+        }
+        return null;
     }
 
     public void delete(Key key){ //remove key (and its value) from table
@@ -123,7 +128,7 @@ public class ST<Key extends Comparable<Key>, Value> {
             return rank(hi) - rank(lo);
     }
 
-    public Iterable<Key> keys(Key lo, Key hi){ //keys in [lo..hi], in sorted order
+    public Iterable<Key> keys(Key lo, Key hi){ //keys in [lo, ..., hi], in sorted order
         LinkedList<Key> q = new LinkedList<>();
         for (int i = rank(lo); i < rank(hi); i++)
             q.add(keys[i]);
