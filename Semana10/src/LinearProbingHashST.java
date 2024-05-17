@@ -84,7 +84,4 @@ public class LinearProbingHashST <Key, Value>{
         values = t.values;
         M = t.M;
     }
-
-    // public static void main(String[] args) {
-
 }
