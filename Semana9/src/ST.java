@@ -3,6 +3,18 @@ import java.util.NoSuchElementException;
 
 public class ST<Key extends Comparable<Key>, Value> {
 
+    private class Node {
+        public Key key;
+        public Value value;
+        public Node left, right;
+        public int size;
+
+        public Node(Key key, Value value){
+            this.key = key;
+            this.value = value;
+        }
+    }
+
     private Node root;
     private int size;
 
@@ -16,14 +28,17 @@ public class ST<Key extends Comparable<Key>, Value> {
         size = size(root);
     }
 
-    public Node put(Node x, Key key, Value value){
+    private Node put(Node x, Key key, Value value){
+        if (x == null)
+            return new Node(key, value);
         int cmp = key.compareTo(x.key);
-        if (cmp > 0)
+        if (cmp < 0)
             x.left = put(x.left, key, value);
-        else if (cmp < 0)
+        else if (cmp > 0)
             x.right = put(x.right, key, value);
         else
             x.value = value;
+        x.size = size(x.left) + size(x.right) + 1;
         return x;
     }
 
@@ -98,10 +113,22 @@ public class ST<Key extends Comparable<Key>, Value> {
         return 1 + Math.max(height(x.left), height(x.right));
     }
 
+    public Key min(){
+        if (isEmpty())
+            throw new NoSuchElementException("called min() with empty symbol table");
+        return min(root).key;
+    }
+
     public Node min(Node x){
         if (x.left == null)
             return x;
         return min(x.left);
+    }
+
+    public Key max(){
+        if (isEmpty())
+            throw new NoSuchElementException("called max() with empty symbol table");
+        return max(root).key;
     }
 
     public Node max(Node x){
@@ -231,37 +258,29 @@ public class ST<Key extends Comparable<Key>, Value> {
     }
 
     public Iterable<Key> keys(Key lo, Key hi){
+        if (lo == null || hi == null)
+            throw new IllegalArgumentException("argument to keys() is null");
         ArrayList<Key> keyList = new ArrayList<>();
-        traverse(root, lo, hi, keyList);
+        keys(root, keyList, lo, hi);
         return keyList;
     }
 
     public Iterable<Key> keys(){
-        return keys(null, null);
+        if (isEmpty()) return new ArrayList<Key>();
+        return keys(min(), max());
     }
 
-    private void traverse(Node x, Key lo, Key hi, ArrayList<Key> keyList) {
-        if (x == null) {
+    private void keys(Node x, ArrayList<Key> keyList, Key lo, Key hi){
+        if (x == null)
             return;
-        }
-        traverse(x.left, lo, hi, keyList);
-        if ((lo == null || x.key.compareTo(lo) >= 0) && (hi == null || x.key.compareTo(hi) <= 0)) {
+        int cmplo = lo.compareTo(x.key);
+        int cmphi = hi.compareTo(x.key);
+        if (cmplo < 0)
+            keys(x.left, keyList, lo, hi);
+        if (cmplo <= 0 && cmphi >= 0)
             keyList.add(x.key);
-        }
-        traverse(x.right, lo, hi, keyList);
+        if (cmphi > 0)
+            keys(x.right, keyList, lo, hi);
     }
 
-    private class Node {
-        public Key key;
-        public Value value;
-        public Node left, right;
-        public int size;
-
-        public Node(Key key, Value value){
-            this.key = key;
-            this.value = value;
-        }
-    }
 }
-
-
