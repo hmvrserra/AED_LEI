@@ -4,7 +4,6 @@ public class Main {
         System.out.println("Before sorting:");
         for (int i = 0; i < a.length; i++)
             System.out.print(a[i] + " ");
-        HeapSorting.sort(a);
         System.out.println("\nAfter sorting:");
         for (int i = 0; i < a.length; i++)
             System.out.print(a[i] + " ");

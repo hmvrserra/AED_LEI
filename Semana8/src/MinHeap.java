@@ -71,21 +71,4 @@ public class MinHeap<T extends Comparable<T>>{
         }
 
     }
-
-    public static void main(String[] args){
-        MinHeap<Integer> heap = new MinHeap<>(10);
-
-        heap.insert(7);
-        heap.insert(5);
-        heap.insert(3);
-        heap.insert(2);
-        heap.insert(8);
-        heap.insert(1);
-        heap.insert(6);
-        heap.insert(9);
-        heap.insert(4);
-
-        while (!heap.isEmpty())
-            System.out.println(heap.delMin());
-    }
 }

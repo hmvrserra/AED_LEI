@@ -3,13 +3,14 @@ import java.util.Queue;
 
 public class LinearProbingHashST <Key, Value>{
 
-    private int N;
+    private int size;
     private int M;
-    private Value[] values;
     private Key[] keys;
+    private Value[] values;
 
     public LinearProbingHashST(int M) {
         this.M = M;
+        this.size = 0;
         this.keys = (Key[]) new Object[M];
         this.values = (Value[]) new Object[M];
     }
@@ -24,14 +25,14 @@ public class LinearProbingHashST <Key, Value>{
             i = (i + 1) % M;
         keys[i] = key;
         values[i] = value;
-        N++;
+        size++;
     }
 
     public Value get(Key key) {
-        int i = hash(key);
-        while (keys[i] != null && !key.equals(keys[i]))
-            i = (i + 1) % M;
-        return values[i];
+        for (int i = hash(key); keys[i] != null; i = (i + 1) % M)
+            if (key.equals(keys[i]))
+                return values[i];
+        return null;
     }
 
     public void delete(Key key) {
@@ -47,12 +48,12 @@ public class LinearProbingHashST <Key, Value>{
             Value valToRedo = values[i];
             keys[i] = null;
             values[i] = null;
-            N--;
+            size--;
             put(keyToRedo, valToRedo);
             i = (i + 1) % M;
         }
-        N--;
-        if (N > 0 && N == M/8) resize(M/2);
+        size--;
+        if (size > 0 && size == M/8) resize(M/2);
     }
 
     public boolean contains(Key key) {
@@ -64,7 +65,7 @@ public class LinearProbingHashST <Key, Value>{
     }
 
     public int size() {
-        return N;
+        return size;
     }
 
     public Iterable<Key> keys() {
